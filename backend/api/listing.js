@@ -2,15 +2,13 @@ import dbConnect from '../utils/dbConnect';
 import Listing from '../models/Listing';
 import Cors from 'cors';
 
-// CORS configuration
 const cors = Cors({
-  origin: 'https://movie-app-x.vercel.app',
+  origin: 'https://lost-and-found-lovat.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 });
 
-// Helper method to allow middleware like CORS
 function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
@@ -23,18 +21,15 @@ function runMiddleware(req, res, fn) {
 }
 
 export default async function handler(req, res) {
-  // Ensure CORS is set up first
   await runMiddleware(req, res, cors);
 
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://movie-app-frontend-xi.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
 
-  // Connect to the database
   try {
     console.log("Connecting to the database...");
     await dbConnect();
@@ -44,9 +39,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Database connection error" });
   }
 
-  // Handle GET request for listing by ID
   if (req.method === 'GET') {
-    const { id } = req.query; // Use req.query instead of req.params
+    const { id } = req.query; 
 
     console.log("Received request for ID:", id);
     try {

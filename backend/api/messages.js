@@ -1,8 +1,39 @@
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const Message = require('../models/Message');
 const User = require('../models/User');
 
+const corsOptions = {
+  origin: 'https://lost-and-found-lovat.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+async function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+}
+
+router.use(async (req, res, next) => {
+  await runMiddleware(req, res, cors(corsOptions));
+  
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', corsOptions.origin);
+    res.setHeader('Access-Control-Allow-Methods', corsOptions.methods.join(', '));
+    res.setHeader('Access-Control-Allow-Headers', corsOptions.allowedHeaders.join(', '));
+    return res.status(204).end();
+  }
+
+  next();
+});
 router.post('/send', async (req, res) => {
     const { senderName, recipientUsername, content } = req.body;
 
