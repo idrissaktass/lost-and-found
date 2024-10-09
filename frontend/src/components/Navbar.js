@@ -43,27 +43,27 @@ const Navbar = () => {
     else if (path === "/pets") setActivePage("Pets");
   }, [location]); 
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-        try {
-            const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/${userName}`);
-            const data = await response.json();
-            console.log("API Response:", data);
+//   useEffect(() => {
+//     const fetchMessages = async () => {
+//         try {
+//             const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/${userName}`);
+//             const data = await response.json();
+//             console.log("API Response:", data);
             
-            if (data.messages && data.unreadMessages) {
-                setMessageCount(data.unreadMessages.length);
-                console.log("Unread messages count:", data.unreadMessages.length);
-            } else {
-                console.warn("No messages found or data structure is incorrect.");
-                setMessageCount(0);
-            }
-        } catch (error) {
-            console.error('Error fetching messages:', error);
-        }
-    };
+//             if (data.messages && data.unreadMessages) {
+//                 setMessageCount(data.unreadMessages.length);
+//                 console.log("Unread messages count:", data.unreadMessages.length);
+//             } else {
+//                 console.warn("No messages found or data structure is incorrect.");
+//                 setMessageCount(0);
+//             }
+//         } catch (error) {
+//             console.error('Error fetching messages:', error);
+//         }
+//     };
     
-    fetchMessages();
-}, []);
+//     fetchMessages();
+// }, [userName]);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
