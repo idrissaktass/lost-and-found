@@ -3,6 +3,7 @@ const cors = require('cors');
 const router = express.Router();
 const Message = require('../models/Message');
 const User = require('../models/User');
+import dbConnect from '../utils/dbConnect';
 
 const corsOptions = {
   origin: 'https://lost-and-found-lovat.vercel.app',
@@ -31,7 +32,14 @@ router.use(async (req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', corsOptions.allowedHeaders.join(', '));
     return res.status(204).end();
   }
-
+  try {
+    console.log("Connecting to the database...");
+    await dbConnect();
+    console.log("Database connected");
+  } catch (error) {
+    console.error("Database connection error:", error);
+    return res.status(500).json({ error: "Database connection error" });
+  }
   next();
 });
 router.post('/send', async (req, res) => {
