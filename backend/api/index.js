@@ -2,7 +2,17 @@
 import { getUnread } from './messages';
 import { send, read, getAllMessages, getMessagesBetween } from './messages';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   const { method } = req;
 
   switch (method) {
@@ -15,10 +25,9 @@ export default function handler(req, res) {
         return getMessagesBetween(req, res); // When both username and recipient are provided
       }
       if (req.query.username) {
-        return getAllMessages(req, res); // When only username is provided
-      }
-      if (req.query.username) {
-        return getUnread(req, res); // When only username is provided
+        // Differentiate between fetching all messages and unread messages
+        const unread = req.query.unread === 'true'; // Check for an unread query parameter
+        return unread ? getUnread(req, res) : getAllMessages(req, res); // Handle accordingly
       }
       return res.status(405).end(`Method ${method} Not Allowed`);
     default:

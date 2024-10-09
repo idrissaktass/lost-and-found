@@ -35,6 +35,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ messages, unreadMessages, uniqueRecipients, messageCounts });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Error fetching messages:", error); // Log the error for debugging
+    res.status(500).json({ error: 'Failed to fetch messages' }); // Return a generic error for the client
   }
 }
