@@ -1,9 +1,33 @@
-// api/messages/getAllMessages.js
 import dbConnect from '../../utils/dbConnect';
 import Message from '../../models/Message';
 import User from '../../models/User';
+import Cors from 'cors';
+
+const cors = Cors({
+  origin: 'https://lost-and-found-frontend-mu.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+});
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+}
 
 export default async function handler(req, res) {
+  await runMiddleware(req, res, cors);
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end(); // No content for OPTIONS method
+  }
+
   await dbConnect();
 
   const { username } = req.query;
@@ -35,7 +59,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ messages, unreadMessages, uniqueRecipients, messageCounts });
   } catch (error) {
-    console.error("Error fetching messages:", error); // Log the error for debugging
-    res.status(500).json({ error: 'Failed to fetch messages' }); // Return a generic error for the client
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ error: 'Failed to fetch messages' });
   }
 }

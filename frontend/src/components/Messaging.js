@@ -20,28 +20,36 @@ const Messaging = ({ open, onClose, recipient }) => {
 
     const fetchMessages = async () => {
         setLoadingMessages(true);
-        console.log("xd fetch messages")
+        console.log("Fetching messages...");
+      
         try {
-            const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/${userName}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch messages');
-            }
-            const data = await response.json();
-            if (data.messages && data.unreadMessages && data.messageCounts) {
-                setMessageCount(data.unreadMessages.length); 
-                console.log("Unread messages count:", data.unreadMessages.length);
-                setMessageCounts(data.messageCounts); 
-            } else {
-                console.warn("No messages found or data structure is incorrect.");
-                setMessageCount(0);
-            }
-            setRecipients(data.uniqueRecipients);
+          const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/getAllMessages?username=${userName}`, {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include', // Include credentials if needed
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to fetch messages');
+          }
+      
+          const data = await response.json();
+          if (data.messages && data.unreadMessages && data.messageCounts) {
+            setMessageCount(data.unreadMessages.length);
+            console.log("Unread messages count:", data.unreadMessages.length);
+            setMessageCounts(data.messageCounts);
+          } else {
+            console.warn("No messages found or data structure is incorrect.");
+            setMessageCount(0);
+          }
+          setRecipients(data.uniqueRecipients);
         } catch (error) {
-            console.error('Error fetching messages:', error);
+          console.error('Error fetching messages:', error);
         } finally {
-            setLoadingMessages(false);
+          setLoadingMessages(false);
         }
-    };
+      };
+      
     
     useEffect(() => {
         fetchMessages();
@@ -49,80 +57,96 @@ const Messaging = ({ open, onClose, recipient }) => {
             handleRecipientClick(recipient);
         }
     }, [userName, recipient]);
-
     const handleRecipientClick = async (recipient) => {
         if (selectedRecipient === recipient) {
-            setSelectedRecipient('');
-            setMessages([]);
+          setSelectedRecipient('');
+          setMessages([]);
         } else {
-            setSelectedRecipient(recipient);
-            setLoadingMessages(true);
-            const fetchUrl = `https://lost-and-found-backend-red.vercel.app//api/messages/${userName}/${recipient}`;
-            console.log('Fetching messages from:', recipient);
-            
-            const response = await fetch(fetchUrl);
-            if (response.ok) {
-                const data = await response.json();
-                setMessages(data);
-    
-                data.forEach(message => {
-                    if (!message.read) {
-                        markMessageAsRead(message._id);
-                    }
-                });
-                fetchMessages();
-            } else {
-                console.error('Failed to fetch messages for recipient:', recipient, response.status);
+          setSelectedRecipient(recipient);
+          setLoadingMessages(true);
+      
+          const fetchUrl = `https://lost-and-found-backend-red.vercel.app/api/messages/${userName}/${recipient}`;
+          console.log('Fetching messages from:', fetchUrl);
+      
+          try {
+            const response = await fetch(fetchUrl, {
+              method: 'GET',
+              mode: 'cors',
+              credentials: 'include',
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Failed to fetch messages for recipient: ${recipient}, status: ${response.status}`);
             }
+      
+            const data = await response.json();
+            setMessages(data);
+      
+            data.forEach(message => {
+              if (!message.read) {
+                markMessageAsRead(message._id);
+              }
+            });
+      
+            fetchMessages();
+          } catch (error) {
+            console.error(error);
+          } finally {
             setLoadingMessages(false);
             if (isSmallScreen) {
-                setShowMessages(true); 
+              setShowMessages(true); 
             }
+          }
         }
-    };
+      };
+      
     
-    const markMessageAsRead = async (messageId) => {
+      const markMessageAsRead = async (messageId) => {
         try {
-            const response = await fetch(`https://lost-and-found-backend-red.vercel.app//api/messages/read/${messageId}`, {
-                method: 'PUT',
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to mark message as read');
-            }
-    
-            console.log('Message marked as read:', messageId);
+          const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/read/${messageId}`, {
+            method: 'PUT',
+            mode: 'cors',
+            credentials: 'include', // Include credentials if needed
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to mark message as read');
+          }
+      
+          console.log('Message marked as read:', messageId);
         } catch (error) {
-            console.error('Error marking message as read:', error);
+          console.error('Error marking message as read:', error);
         }
-    };
+      };
+      
     
-    const sendMessage = async (e) => {
+      const sendMessage = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://lost-and-found-backend-red.vercel.app//api/messages/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    senderName: userName,
-                    recipientUsername: selectedRecipient,
-                    content,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to send message');
-            }
-
-            const data = await response.json();
-            setMessages((prevMessages) => [...prevMessages, data.message]);
-            setContent('');
+          const response = await fetch('https://lost-and-found-backend-red.vercel.app/api/messages/send', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              senderName: userName,
+              recipientUsername: selectedRecipient,
+              content,
+            }),
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to send message');
+          }
+      
+          const data = await response.json();
+          setMessages((prevMessages) => [...prevMessages, data.message]);
+          setContent('');
         } catch (error) {
-            console.error('Error sending message:', error);
+          console.error('Error sending message:', error);
         }
-    };
+      };
+      
 
     return (
         <Modal open={open} onClose={onClose}>
