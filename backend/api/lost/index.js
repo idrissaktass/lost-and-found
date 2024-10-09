@@ -1,16 +1,26 @@
-// api/lost/index.js
 import express from 'express';
+import Cors from 'cors';
 import getLost from './get';
-// You can import additional route files here (e.g., create, update, delete)
+// Import other route files if needed
 
+const app = express();
 const router = express.Router();
 
-// Use the imported getLost route
-router.use('/get', getLost);  // Mount the get route at /api/lost/get
+// CORS configuration
+const corsOptions = {
+  origin: 'https://lost-and-found-lovat.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
 
-// You can add other route usages here, e.g.,
-// router.use('/create', createLost);
-// router.use('/update', updateLost);
-// router.use('/delete', deleteLost);
+// Apply CORS to all routes
+app.use(Cors(corsOptions));
 
-export default router;
+// Add routes
+router.use('/get', getLost);
+// Add other routes as needed
+
+app.use('/api/lost', router);
+
+export default app;
