@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     })
     .populate('sender', 'username')
     .populate('recipient', 'username');
-
+    console.log("xd",unreadMessages)
     res.status(200).json({ unreadMessages });
   } catch (error) {
     res.status(400).json({ error: error.message });
