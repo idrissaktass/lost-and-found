@@ -18,8 +18,8 @@ app.use(express.json()); // For parsing application/json
 
 // Define your routes
 app.post('/api/messages/send', send);
-app.put('/api/messages/read', read);
 app.get('/api/messages/getUnread', getUnread);
-app.get('/api/messages/:username/:recipient', getMessagesBetweenUsers); // Add this route
+app.get('/api/messages/:username/:recipient', getMessagesBetweenUsers);
+app.put('/api/messages/read/:messageId', read); // Use PUT for marking messages as read
 
 export default app;

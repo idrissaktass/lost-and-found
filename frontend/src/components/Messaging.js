@@ -101,25 +101,24 @@ const handleRecipientClick = async (recipient) => {
   }
 };
 
-      
-    
-      const markMessageAsRead = async (messageId) => {
-        try {
-          const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/read/${messageId}`, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include', // Include credentials if needed
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to mark message as read');
-          }
-      
-          console.log('Message marked as read:', messageId);
-        } catch (error) {
-          console.error('Error marking message as read:', error);
-        }
-      };
+const markMessageAsRead = async (messageId) => {
+    try {
+      const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/read/${messageId}`, {
+        method: 'PUT',
+        mode: 'cors',
+        credentials: 'include', // Include credentials if needed
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to mark message as read');
+      }
+  
+      console.log('Message marked as read:', messageId);
+    } catch (error) {
+      console.error('Error marking message as read:', error);
+    }
+  };
+  
       
     
       const sendMessage = async (e) => {
