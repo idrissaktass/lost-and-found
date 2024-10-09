@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/dbConnect';
 import Message from '../../../models/Message';
+import User from '../../../models/User';
 import Cors from 'cors';
 
 const cors = Cors({
@@ -24,26 +25,39 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end(); // No content for OPTIONS method
   }
 
   await dbConnect();
 
-  const { messageId } = req.query;
+  const { username, recipient } = req.query;
+
+  console.log(`Fetching messages for user: ${username} with recipient: ${recipient}`);
 
   try {
-    const message = await Message.findById(messageId);
+    const user = await User.findOne({ username });
+    const recipientUser = await User.findOne({ username: recipient });
 
-    if (!message) {
-      return res.status(404).json({ error: 'Message not found' });
+    if (!user || !recipientUser) {
+      console.error('User or Recipient not found');
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    message.read = true;
-    await message.save();
+    const messages = await Message.find({
+      $or: [
+        { sender: user._id, recipient: recipientUser._id },
+        { sender: recipientUser._id, recipient: user._id },
+      ],
+    })
+    .populate('sender', 'username')
+    .populate('recipient', 'username');
 
-    res.status(200).json({ message: 'Message marked as read' });
+    res.status(200).json(messages);
   } catch (error) {
-    console.error("Error marking message as read:", error);
-    res.status(500).json({ error: 'Failed to mark message as read' });
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ error: 'Failed to fetch messages' });
   }
 }
