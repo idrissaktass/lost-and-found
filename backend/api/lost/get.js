@@ -1,6 +1,7 @@
+// api/lost/get.js
 import express from 'express';
-import Lost from '../models/Lost';
-import dbConnect from '../utils/dbConnect';
+import Lost from '../../models/Lost'; // Adjust the import path if necessary
+import dbConnect from '../../utils/dbConnect';
 import Cors from 'cors';
 
 const router = express.Router();

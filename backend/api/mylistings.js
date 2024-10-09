@@ -23,28 +23,6 @@ function runMiddleware(req, res, fn) {
   });
 }
 
-cloudinary.v2.config({
-  cloud_name: 'daiuzirml',
-  api_key: '275313194368981',
-  api_secret: 'jnjQWJjuKNRtGgOy4H9bKZpKvb8',
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary.v2,
-  params: {
-    folder: 'losts',
-    allowed_formats: ['jpg', 'png', 'jpeg'],
-  },
-});
-
-const upload = multer({ storage: storage });
-
-export const config = {
-  api: {
-    bodyParser: false, // Important: Disable body parsing, as we're using multer
-  },
-};
-
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
