@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000/routes'; // Adjusted base URL
+const BASE_URL = 'https://lost-and-found-backend-six.vercel.app/api'; // Adjusted base URL
 
 export const loginService = async (email, password) => {
   const response = await fetch(`${BASE_URL}/auth/login`, {
