@@ -18,6 +18,7 @@ const Listings = () => {
 
     useEffect(() => {
         const fetchListings = async () => {
+            setLoading(true);
             try {
                 const response = await fetch("https://lost-and-found-backend-six.vercel.app/api/listings");
                 if (!response.ok) {
