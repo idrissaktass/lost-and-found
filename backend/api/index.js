@@ -1,6 +1,7 @@
 import express from 'express'; 
 import cors from 'cors'; 
 import { getUnread, send, read, getMessagesBetweenUsers } from './messages';
+import { lostId } from './lost';
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.post('/api/messages/send', send);
 app.get('/api/messages/getUnread', getUnread);
 app.get('/api/messages/:username/:recipient', getMessagesBetweenUsers);
 app.put('/api/messages/read/:messageId', read); // Use PUT for marking messages as read
+app.post('/api/lost/:id', lostId);
 
 export default app;
