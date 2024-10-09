@@ -1,6 +1,6 @@
 import dbConnect from '../../../utils/dbConnect';
 import Message from '../../../models/Message';
-import User from '../../../models/User';
+import User from '../../../models/User';  // Ensure User is imported
 import Cors from 'cors';
 
 const cors = Cors({
@@ -25,6 +25,9 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end(); // No content for OPTIONS method
   }
 
@@ -32,11 +35,14 @@ export default async function handler(req, res) {
 
   const { username, recipient } = req.query;
 
+  console.log(`Fetching messages for user: ${username} with recipient: ${recipient}`);
+
   try {
     const user = await User.findOne({ username });
     const recipientUser = await User.findOne({ username: recipient });
 
     if (!user || !recipientUser) {
+      console.error('User or Recipient not found');
       return res.status(404).json({ error: 'User not found' });
     }
 
