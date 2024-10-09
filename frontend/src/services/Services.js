@@ -1,7 +1,7 @@
 const BASE_URL = 'https://lost-and-found-backend-six.vercel.app/api'; // Adjusted base URL
 
 export const loginService = async (email, password) => {
-  const response = await fetch(`${BASE_URL}/auth/login`, {
+  const response = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -30,7 +30,7 @@ export const loginService = async (email, password) => {
 export const signupService = async (username, email, password) => {
   console.log("datasignup")
 
-  const response = await fetch(`${BASE_URL}/auth/register`, {
+  const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, password }),
