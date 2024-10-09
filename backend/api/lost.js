@@ -5,7 +5,7 @@ import Cors from 'cors';
 
 const router = express.Router();
 const cors = Cors({
-  origin: 'https://lost-and-found-lovat.vercel.app',
+  origin: 'https://lost-and-found-lovat.vercel.app/lost',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app/lost');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
