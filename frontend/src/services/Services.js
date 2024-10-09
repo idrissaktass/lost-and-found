@@ -1,4 +1,4 @@
-const BASE_URL = 'https://lost-and-found-backend-red.vercel.app//api'; // Adjusted base URL
+const BASE_URL = 'https://lost-and-found-backend-red.vercel.app/api'; // Adjusted base URL
 
 export const loginService = async (email, password) => {
   const response = await fetch(`${BASE_URL}/login`, {
