@@ -24,11 +24,13 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
+  res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Ensure credentials are allowed
+
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.status(204).end();
+    return res.status(204).end(); // No content for OPTIONS method
   }
 
   await dbConnect();
@@ -43,7 +45,6 @@ export default async function handler(req, res) {
 
     if (!user || !recipientUser) {
       console.error('User or Recipient not found');
-      res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -56,11 +57,9 @@ export default async function handler(req, res) {
     .populate('sender', 'username')
     .populate('recipient', 'username');
 
-    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
-    res.status(200).json(messages);
+    return res.status(200).json(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
-    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
-    res.status(500).json({ error: 'Failed to fetch messages' });
+    return res.status(500).json({ error: 'Failed to fetch messages' });
   }
 }

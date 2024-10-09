@@ -57,49 +57,50 @@ const Messaging = ({ open, onClose, recipient }) => {
             handleRecipientClick(recipient);
         }
     }, [userName, recipient]);
-    const handleRecipientClick = async (recipient) => {
-        if (selectedRecipient === recipient) {
-          setSelectedRecipient('');
-          setMessages([]);
-        } else {
-          setSelectedRecipient(recipient);
-          setLoadingMessages(true);
-      
-          const fetchUrl = `https://lost-and-found-backend-red.vercel.app/api/messages/${userName}/${recipient}`;
-          console.log('Fetching messages from:', fetchUrl);
-      
-          try {
-            const response = await fetch(fetchUrl, {
-              method: 'GET',
-              mode: 'cors',
-              credentials: 'include',
-            });
-      
-            if (!response.ok) {
-              throw new Error(`Failed to fetch messages for recipient: ${recipient}, status: ${response.status}`);
-            }
-      
-            const data = await response.json();
-            setMessages(data);
-      
-            data.forEach(message => {
-              if (!message.read) {
-                markMessageAsRead(message._id);
-              }
-            });
-      
-            fetchMessages();
-          } catch (error) {
-            console.error(error);
-          } finally {
-            setLoadingMessages(false);
-            if (isSmallScreen) {
-              setShowMessages(true); 
-            }
-          }
+
+const handleRecipientClick = async (recipient) => {
+  if (selectedRecipient === recipient) {
+    setSelectedRecipient('');
+    setMessages([]);
+  } else {
+    setSelectedRecipient(recipient);
+    setLoadingMessages(true);
+
+    const fetchUrl = `https://lost-and-found-backend-red.vercel.app/api/messages/${userName}/${recipient}`;
+    console.log('Fetching messages from:', fetchUrl);
+
+    try {
+      const response = await fetch(fetchUrl, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch messages for recipient: ${recipient}, status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setMessages(data);
+
+      data.forEach(message => {
+        if (!message.read) {
+          markMessageAsRead(message._id);
         }
-      };
-      
+      });
+
+      fetchMessages();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingMessages(false);
+      if (isSmallScreen) {
+        setShowMessages(true); 
+      }
+    }
+  }
+};
+
       
     
       const markMessageAsRead = async (messageId) => {
