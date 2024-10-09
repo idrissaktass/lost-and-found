@@ -20,7 +20,22 @@ function runMiddleware(req, res, fn) {
   });
 }
 
-export default async function handler(req, res) {
+router.get('/:id', async (req, res) => {
+  console.log("Received request for ID:", req.params.id);
+  try {
+      const listing = await Listing.findById(req.params.id).populate('createdBy', 'name');
+      if (!listing) {
+          return res.status(404).json({ message: 'Listing not found' });
+      }
+      console.log("Fetched listing:", listing);
+      res.status(200).json(listing);
+  } catch (error) {
+      console.error("Error fetching listing:", error); 
+      res.status(500).json({ message: 'Failed to fetch listing', error });
+  }
+});
+
+router.use(async (req, res, next) => {
   await runMiddleware(req, res, cors);
 
   // Set CORS headers for all responses
@@ -42,24 +57,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Database connection error" });
   }
 
-  if (req.method === 'GET') {
-    const { id } = req.query;
+  next();
+});
 
-    console.log("Received request for ID:", id);
-    try {
-      const listing = await Listing.findById(id).populate('createdBy', 'name');
-      if (!listing) {
-        return res.status(404).json({ message: 'Listing not found' });
-      }
-      console.log("Fetched listing:", listing);
-      return res.status(200).json(listing);
-    } catch (error) {
-      console.error("Error fetching listing:", error);
-      return res.status(500).json({ message: 'Failed to fetch listing', error });
-    }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-}
-
+module.exports = router;
