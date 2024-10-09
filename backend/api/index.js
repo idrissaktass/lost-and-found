@@ -1,6 +1,24 @@
 // api/index.js
 import { getUnread } from './messages';
 import { send, read, getAllMessages, getMessagesBetween } from './messages';
+import express from 'express'; // or require('express')
+import cors from 'cors'; // Import CORS
+
+const app = express();
+
+// CORS configuration
+const corsOptions = {
+  origin: 'https://lost-and-found-lovat.vercel.app', // your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
+
+// Other middleware and routes
+app.use(express.json()); // For parsing application/json
 
 export default async function handler(req, res) {
   // Set CORS headers

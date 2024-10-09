@@ -50,20 +50,22 @@ const Navbar = () => {
             const data = await response.json();
             console.log("API Response:", data);
             
-            if (data.messages && data.unreadMessages) {
+            // Directly check for unreadMessages
+            if (data.unreadMessages) {
                 setMessageCount(data.unreadMessages.length);
                 console.log("Unread messages count:", data.unreadMessages.length);
             } else {
-                console.warn("No messages found or data structure is incorrect.");
+                console.warn("No unread messages found or data structure is incorrect.");
                 setMessageCount(0);
             }
         } catch (error) {
             console.error('Error fetching messages:', error);
         }
     };
-    
+
     fetchMessages();
 }, [userName]);
+
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
