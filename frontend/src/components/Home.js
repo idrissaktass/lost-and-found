@@ -15,7 +15,7 @@ const Home = () => {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const response = await fetch("https://lost-and-found-backend-six.vercel.app/api/listings");
+                const response = await fetch("https://lost-and-found-backend-red.vercel.app/api/listings");
                 if (!response.ok) {
                     throw new Error("Failed to fetch listings");
                 }

@@ -46,7 +46,7 @@ const Navbar = () => {
     useEffect(() => {
       const fetchMessages = async () => {
         try {
-            const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/getUnread?username=${userName}`, {
+            const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/getUnread?username=${userName}`, {
                 method: 'GET',
                 mode: 'cors',
                 credentials: 'include', // Include credentials if needed

@@ -31,7 +31,7 @@ const ListingDetails = () => {
             console.log("id2", id)
             setLoading(true)
             try {
-                const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/listing/${id}`);
+                const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/listing/${id}`);
                 console.log("id",response)
                 if (!response.ok) {
                     throw new Error('Failed to fetch listing');

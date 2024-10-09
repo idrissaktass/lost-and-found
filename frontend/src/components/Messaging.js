@@ -22,7 +22,7 @@ const Messaging = ({ open, onClose, recipient }) => {
         setLoadingMessages(true);
         console.log("xd fetch messages")
         try {
-            const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/${userName}`);
+            const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/${userName}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch messages');
             }
@@ -57,7 +57,7 @@ const Messaging = ({ open, onClose, recipient }) => {
         } else {
             setSelectedRecipient(recipient);
             setLoadingMessages(true);
-            const fetchUrl = `https://lost-and-found-backend-six.vercel.app/api/messages/${userName}/${recipient}`;
+            const fetchUrl = `https://lost-and-found-backend-red.vercel.app//api/messages/${userName}/${recipient}`;
             console.log('Fetching messages from:', recipient);
             
             const response = await fetch(fetchUrl);
@@ -83,7 +83,7 @@ const Messaging = ({ open, onClose, recipient }) => {
     
     const markMessageAsRead = async (messageId) => {
         try {
-            const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/read/${messageId}`, {
+            const response = await fetch(`https://lost-and-found-backend-red.vercel.app//api/messages/read/${messageId}`, {
                 method: 'PUT',
             });
     
@@ -100,7 +100,7 @@ const Messaging = ({ open, onClose, recipient }) => {
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://lost-and-found-backend-six.vercel.app/api/messages/send', {
+            const response = await fetch('https://lost-and-found-backend-red.vercel.app//api/messages/send', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://lost-and-found-backend-six.vercel.app/api/$1"
+      "destination": "https://lost-and-found-backend-red.vercel.app/api/$1"
     },
     {
       "source": "/(.*)", 
