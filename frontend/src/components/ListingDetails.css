@@ -1,0 +1,46 @@
+.content {
+    transition: max-height 0.4s ease-in-out, opacity 0.9s ease-in-out;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0; 
+}
+
+.content {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ac5959 #ac595919; 
+}
+
+.content.open {
+    max-height: 900px; 
+    opacity: 1; 
+}
+
+.content.closed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.content::-webkit-scrollbar {
+    width: 8px;
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background-color: #00468c;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background-color: #003a70;
+}
+
+.content.scrolling::-webkit-scrollbar {
+    opacity: 1;
+}
