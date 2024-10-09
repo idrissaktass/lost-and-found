@@ -20,6 +20,7 @@ const Messaging = ({ open, onClose, recipient }) => {
 
     const fetchMessages = async () => {
         setLoadingMessages(true);
+        console.log("xd fetch messages")
         try {
             const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/${userName}`);
             if (!response.ok) {
