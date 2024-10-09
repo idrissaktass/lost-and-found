@@ -28,7 +28,7 @@ const ListingDetails = () => {
 
     useEffect(() => {
         const fetchListing = async () => {
-            console.log("id")
+            console.log("id2", id)
             setLoading(true)
             try {
                 const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/listing/${id}`);
