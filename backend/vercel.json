@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/messages/(.*)",
-      "destination": "https://lost-and-found-backend-six.vercel.app/api/messages/$1"
-    },
-    {
       "source": "/api/(.*)", 
       "destination": "/api/$1"
     },
