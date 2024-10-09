@@ -92,55 +92,57 @@ const ListingDetails = () => {
     return (
         <Grid height={"100vh"} >
             <Navbar />
-            <Box flexGrow={1}>
-                <Grid container justifyContent={'center'}>
-                    <Grid height={"100vh"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
-                        size={{ xs: 12, sm:10, md: 8, lg: 6 }} 
-                        gap={2} 
-                        sx={{background: 'linear-gradient(to right, #0088ff8c, #007fff2b)'}}
-                        boxShadow={"0px 5px 10px #b4b4b4"} 
-                        px={3}
-                        pt={10}
-                        container 
-                        flexDirection={'column'} 
-                        className={`content ${showContent ? 'open' : 'closed'}`} 
-                    >
-                        {listing.images.length > 0 && (
-                            <Grid size={{ xs: 12 }} display={'flex'} justifyContent={'center'} overflow={'hidden'}>
-                                <CardMedia
-                                    component="img"
-                                    width={"100%"}
-                                    alt={listing.title}
-                                    height={400}
-                                    src={listing.images[0]}
-                                />
-                            </Grid>
-                        )}
-                        <Typography variant="h1">{listing.title}</Typography>
-                        <Typography variant="body2">{listing.description}</Typography>
-                        <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                            <SvgIcon component={listing.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />
-                            {listing.category}
-                        </Typography>
-                        <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                            <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />
-                            {listing.createdBy} 
-                            {listing.createdBy !== userName && (
-                                <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
-                                    sx={{cursor:"pointer"}}/>
+            {!loading && (
+                <Box flexGrow={1}>
+                    <Grid container justifyContent={'center'}>
+                        <Grid height={"100vh"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
+                            size={{ xs: 12, sm:10, md: 8, lg: 6 }} 
+                            gap={2} 
+                            sx={{background: 'linear-gradient(to right, #0088ff8c, #007fff2b)'}}
+                            boxShadow={"0px 5px 10px #b4b4b4"} 
+                            px={3}
+                            pt={10}
+                            container 
+                            flexDirection={'column'} 
+                            className={`content ${showContent ? 'open' : 'closed'}`} 
+                        >
+                            {listing.images.length > 0 && (
+                                <Grid size={{ xs: 12 }} display={'flex'} justifyContent={'center'} overflow={'hidden'}>
+                                    <CardMedia
+                                        component="img"
+                                        width={"100%"}
+                                        alt={listing.title}
+                                        height={400}
+                                        src={listing.images[0]}
+                                    />
+                                </Grid>
                             )}
-                        </Typography>
-                        <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                            <SvgIcon component={LocationOnIcon} color='secondary' fontSize='large' />
-                            {listing.location}
-                        </Typography>
-                        <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                            <SvgIcon component={CalendarMonthIcon} color='secondary' fontSize='large' />
-                            {formattedDate}
-                        </Typography>
+                            <Typography variant="h1">{listing.title}</Typography>
+                            <Typography variant="body2">{listing.description}</Typography>
+                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                                <SvgIcon component={listing.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />
+                                {listing.category}
+                            </Typography>
+                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                                <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />
+                                {listing.createdBy} 
+                                {listing.createdBy !== userName && (
+                                    <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
+                                        sx={{cursor:"pointer"}}/>
+                                )}
+                            </Typography>
+                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                                <SvgIcon component={LocationOnIcon} color='secondary' fontSize='large' />
+                                {listing.location}
+                            </Typography>
+                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                                <SvgIcon component={CalendarMonthIcon} color='secondary' fontSize='large' />
+                                {formattedDate}
+                            </Typography>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Box>
+                </Box>
+            )}
             <Messaging open={isMessagesOpen} onClose={handleMessagesClose} recipient={listing.createdBy}/>
         </Grid>
     );
