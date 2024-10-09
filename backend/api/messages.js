@@ -24,13 +24,10 @@ const runMiddleware = (req, res, fn) => {
   });
 };
 
-router.use(async (req, res, next) => {
-  await runMiddleware(req, res, cors(corsOptions));
+router.use(cors(corsOptions)); // Apply CORS globally
 
+router.use(async (req, res, next) => {
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', corsOptions.origin);
-    res.setHeader('Access-Control-Allow-Methods', corsOptions.methods.join(', '));
-    res.setHeader('Access-Control-Allow-Headers', corsOptions.allowedHeaders.join(', '));
     return res.status(204).end(); // No content for OPTIONS method
   }
 
@@ -44,6 +41,7 @@ router.use(async (req, res, next) => {
   }
   next();
 });
+
 
 // Send a message
 router.post('/send', async (req, res) => {
