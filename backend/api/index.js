@@ -23,7 +23,7 @@ app.post('/api/messages/send', send);
 app.get('/api/messages/getUnread', getUnread);
 app.get('/api/messages/:username/:recipient', getMessagesBetweenUsers);
 app.put('/api/messages/read/:messageId', read); // Use PUT for marking messages as read
-app.post('/api/lost/:id', lostId);
-app.post('/api/listing/:id', listingId);
+app.get('/api/lost/:id', lostId); // Ensure it's GET for fetching lost item by ID
+app.get('/api/listing/:id', listingId); // Ensure it's GET for fetching listing by ID
 
 export default app;
