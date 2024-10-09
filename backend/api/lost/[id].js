@@ -1,5 +1,5 @@
 import dbConnect from '../../utils/dbConnect';
-import LostItem from '../../models/LostItem';
+import Lost from '../../models/Lost';
 import Cors from 'cors';
 
 const cors = Cors({
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
   const { id } = req.query;
 
   try {
-    const lostItem = await LostItem.findById(id).populate('createdBy', 'name');
+    const lostItem = await Lost.findById(id).populate('createdBy', 'name');
     if (!lostItem) {
       return res.status(404).json({ message: 'Lost item not found' });
     }
