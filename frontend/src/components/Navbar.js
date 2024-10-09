@@ -43,31 +43,31 @@ const Navbar = () => {
     else if (path === "/pets") setActivePage("Pets");
   }, [location]); 
 
-    useEffect(() => {
-      const fetchMessages = async () => {
-        try {
-            const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/getUnread?username=${userName}`, {
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'include', // Include credentials if needed
-            });
-            const data = await response.json();
-            console.log("API Response:", data);
-            
-            if (data.unreadMessages) {
-                setMessageCount(data.unreadMessages.length);
-            } else {
-                console.warn("No unread messages found or data structure is incorrect.");
-                setMessageCount(0);
-            }
-        } catch (error) {
-            console.error('Error fetching messages:', error);
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`https://lost-and-found-backend-red.vercel.app/api/messages/getUnread?username=${userName}`, {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include', // Include credentials if needed
+        });
+        const data = await response.json();
+        console.log("API Response:", data);
+  
+        if (data.unreadMessages) {
+          setMessageCount(data.unreadMessages.length);
+        } else {
+          console.warn("No unread messages found or data structure is incorrect.");
+          setMessageCount(0);
         }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
     };
-      console.log("xd")
-      fetchMessages();
+    console.log("Fetching messages...");
+    fetchMessages();
   }, [userName]);
-
+  
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
