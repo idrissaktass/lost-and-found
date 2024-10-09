@@ -4,7 +4,6 @@ import Cors from 'cors';
 
 const router = express.Router();
 
-// CORS middleware
 const cors = Cors({
     origin: 'https://lost-and-found-lovat.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -12,11 +11,18 @@ const cors = Cors({
     credentials: true,
 });
 
-// Apply CORS middleware to all requests
-router.use(cors);
+function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+        fn(req, res, (result) => {
+            if (result instanceof Error) {
+                return reject(result);
+            }
+            return resolve(result);
+        });
+    });
+}
 
-// Handle OPTIONS requests for preflight
-router.options('*', (req, res) => {
+router.options('/', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -26,12 +32,13 @@ router.options('*', (req, res) => {
 router.get('/', async (req, res) => {
     const username = req.query.username;
 
+    await runMiddleware(req, res, cors);
+
     try {
         const listings = await Listing.find({ createdBy: username }).sort({ createdAt: -1 });
         res.status(200).json(listings);
     } catch (error) {
-        console.error("Error fetching user listings:", error); // Log the error for debugging
-        res.status(500).json({ message: 'Failed to fetch user listings', error: error.message });
+        res.status(500).json({ message: 'Failed to fetch user listings', error });
     }
 });
 

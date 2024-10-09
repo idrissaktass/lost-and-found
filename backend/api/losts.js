@@ -1,21 +1,18 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import dbConnect from '../utils/dbConnect';
+import Lost from '../models/Lost';
 import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import cloudinary from 'cloudinary';
-import Lost from '../models/Lost';
-import dbConnect from '../utils/dbConnect';
 import Cors from 'cors';
 
-const router = express.Router();
 const cors = Cors({
   origin: 'https://lost-and-found-lovat.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  credentials: true, 
 });
 
-async function runMiddleware(req, res, fn) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
@@ -26,9 +23,9 @@ async function runMiddleware(req, res, fn) {
   });
 }
 
-cloudinary.config({
-  cloud_name: 'daiuzirml',
-  api_key: '275313194368981',
+cloudinary.v2.config({ 
+  cloud_name: 'daiuzirml', 
+  api_key: '275313194368981', 
   api_secret: 'jnjQWJjuKNRtGgOy4H9bKZpKvb8'
 });
 
@@ -42,41 +39,56 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/', upload.array('images', 5), async (req, res) => {
+export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.status(204).end();
+    return res.status(204).end(); // No content for OPTIONS method
   }
 
-  await dbConnect();
-  const { title, description, category, location, createdBy, type } = req.body;
-
   try {
-    const newLost = new Lost({ title, description, category, location, createdBy, type });
+    console.log("Connecting to the database...");
+    await dbConnect();
+    console.log("Database connected");
+  } catch (error) {
+    console.error("Database connection error:", error);
+    return res.status(500).json({ error: "Database connection error" });
+  }
 
-    if (req.files) {
-      newLost.images = req.files.map(file => file.path);
+  if (req.method === 'POST') {
+    await upload.array('images', 5)(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ message: 'Image upload failed', error: err });
+      }
+
+      const { title, description, category, location, createdBy, type } = req.body;
+      console.log("body", req.body);
+
+      try {
+        const newListing = new Lost({ title, description, category, location, createdBy, type });
+
+        if (req.files) {
+          newListing.images = req.files.map(file => file.path);
+        }
+
+        await newListing.save();
+        res.status(201).json(newListing);
+      } catch (error) {
+        res.status(500).json({ message: 'Failed to create listing', error });
+      }
+    });
+  } else if (req.method === 'GET') {
+    try {
+      const listings = await Lost.find().populate('createdBy', 'name');
+      res.status(200).json(listings);
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to fetch listings', error });
     }
-
-    await newLost.save();
-    res.status(201).json(newLost);
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to create lost', error });
+  } else {
+    res.setHeader('Allow', ['GET', 'POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-});
-
-router.get('/', async (req, res) => {
-  await dbConnect();
-  try {
-    const losts = await Lost.find().populate('createdBy', 'name');
-    res.status(200).json(losts);
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch losts', error });
-  }
-});
-
-export default router;
+}
