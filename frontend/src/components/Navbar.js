@@ -64,7 +64,7 @@ const Navbar = () => {
             console.error('Error fetching messages:', error);
         }
     };
-    
+      console.log("xd")
       fetchMessages();
   }, [userName]);
 
