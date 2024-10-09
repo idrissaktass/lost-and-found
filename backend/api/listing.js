@@ -6,7 +6,7 @@ const cors = Cors({
   origin: 'https://lost-and-found-lovat.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  credentials: true, 
 });
 
 function runMiddleware(req, res, fn) {
@@ -24,10 +24,12 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.status(204).end();
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+
+    return res.status(204).end(); // No content for OPTIONS method
   }
 
   try {
