@@ -6,7 +6,7 @@ const cors = Cors({
   origin: 'https://lost-and-found-lovat.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, 
+  credentials: true,
 });
 
 function runMiddleware(req, res, fn) {
@@ -24,12 +24,11 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
+    res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-
-    return res.status(204).end(); // No content for OPTIONS method
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    return res.status(204).end();
   }
 
   try {
@@ -42,7 +41,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'GET') {
-    const { id } = req.query; 
+    const { id } = req.query;
 
     console.log("Received request for ID:", id);
     try {
@@ -51,6 +50,7 @@ export default async function handler(req, res) {
         return res.status(404).json({ message: 'Listing not found' });
       }
       console.log("Fetched listing:", listing);
+      res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-lovat.vercel.app');
       res.status(200).json(listing);
     } catch (error) {
       console.error("Error fetching listing:", error);
