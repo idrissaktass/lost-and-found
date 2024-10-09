@@ -6,7 +6,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-    origin: 'https://lost-and-found-lovat.vercel.app', // your frontend URL
+    origin: 'https://lost-and-found-frontend-mu.vercel.app', // your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
