@@ -388,7 +388,7 @@ const Navbar = () => {
                       sx={{
                         backgroundColor: "transparent",
                         color: "inherit",
-                      }}>Messages</MenuItem>
+                      }}>Messages {messageCount > 0 && `(${messageCount})`}</MenuItem>
                     <MenuItem onClick={handleLogout}                     
                       sx={{
                         backgroundColor:"transparent",
