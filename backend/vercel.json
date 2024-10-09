@@ -1,15 +1,12 @@
 {
-  "version": 2,
-  "builds": [
-      {
-          "src": "*.js",
-          "use": "@vercel/node"
-      }
-  ],
-  "routes": [
-      {
-          "src": "/(.*)",
-          "dest": "/"
-      }
+  "rewrites": [
+    {
+      "source": "/api/messages/(.*)",
+      "destination": "https://lost-and-found-backend-six.vercel.app/api/messages/$1"
+    },
+    {
+      "source": "/(.*)", 
+      "destination": "/api"
+    }
   ]
 }
