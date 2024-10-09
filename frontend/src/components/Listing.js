@@ -30,13 +30,13 @@ const ListingDetails = () => {
         const fetchListing = async () => {
             setLoading(true)
             try {
-                const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/listing/${userName}`);
+                const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/listing/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch listing');
                 }
                 const data = await response.json();
                 setListing(data);
-                
+                console.log("id",id)
                 setTimeout(() => {
                     setShowContent(true);
                 }, 100); 
