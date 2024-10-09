@@ -54,7 +54,7 @@ const Navbar = () => {
         const data = await response.json();
         console.log("API Response:", data);
   
-        if (data.unreadMessages && Array.isArray(data.unreadMessages)) {
+        if (data.unreadMessages) {
           setMessageCount(data.unreadMessages.length);
         } else {
           console.warn("No unread messages found or data structure is incorrect.");
@@ -62,10 +62,8 @@ const Navbar = () => {
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
-        setMessageCount(0); // Set to 0 if there is an error
       }
     };
-  
     console.log("Fetching messages...");
     fetchMessages();
   }, [userName]);
