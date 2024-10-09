@@ -63,7 +63,7 @@ const Navbar = () => {
     };
     
     fetchMessages();
-}, [userName]);
+}, []);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
