@@ -28,7 +28,7 @@ const LostDetails = () => {
     useEffect(() => {
         const fetchLost = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/routes/lost/${id}`);
+                const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/lost/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch lost');
                 }

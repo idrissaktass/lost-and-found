@@ -46,7 +46,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchMessages = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/routes/messages/${userName}`);
+            const response = await fetch(`https://lost-and-found-backend-six.vercel.app/api/messages/${userName}`);
             const data = await response.json();
             console.log("API Response:", data);
             

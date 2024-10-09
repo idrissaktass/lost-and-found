@@ -80,7 +80,7 @@ const LostModal = ({ open, onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/routes/losts', {
+      const response = await fetch('https://lost-and-found-backend-six.vercel.app/api/losts', {
         method: 'POST',
         body: formData,
       });
