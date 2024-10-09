@@ -6,7 +6,7 @@ import User from '../../models/User';
 export default async function handler(req, res) {
   await dbConnect();
 
-  const { username } = req.query;
+  const username = req.params.username;
 
   try {
     const user = await User.findOne({ username });
