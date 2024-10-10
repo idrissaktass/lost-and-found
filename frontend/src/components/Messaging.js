@@ -159,11 +159,11 @@ const markMessageAsRead = async (messageId) => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    width: { xs: "97%", sm: "90%", md: "80%", lg: "60%" },
+                    width: { xs: "90%", sm: "90%", md: "80%", lg: "60%" },
                     bgcolor: "background.paper",
                     boxShadow: 24,
                     borderRadius: "10px",
-                    padding: "20px",
+                    padding: {xs:"10px", sm:"20px"},
                 }}
             >
                 <IconButton
@@ -182,7 +182,7 @@ const markMessageAsRead = async (messageId) => {
                 <Box display="flex" height="95%">
                     {isSmallScreen ? (
                         showMessages ? (
-                            <Box flex={1} paddingLeft="10px">
+                            <Box flex={1}>
                                 <IconButton onClick={() => setShowMessages(false)}>
                                     <ArrowBackIcon />
                                 </IconButton>
@@ -208,7 +208,7 @@ const markMessageAsRead = async (messageId) => {
                                         placeholder="Type your message"
                                         required
                                     />
-                                    <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px", backgroundColor: "#ac5959" }}>
+                                    <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px", marginBottom:"10px", backgroundColor: "#ac5959" }}>
                                         Send
                                     </Button>
                                 </form>
@@ -294,7 +294,7 @@ const markMessageAsRead = async (messageId) => {
                                                 placeholder="Type your message"
                                                 required
                                             />
-                                            <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px", backgroundColor: "#ac5959" }}>
+                                            <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px",marginBottom:"10px", backgroundColor: "#ac5959" }}>
                                                 Send
                                             </Button>
                                         </form>
