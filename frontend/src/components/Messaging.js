@@ -123,6 +123,7 @@ const markMessageAsRead = async (messageId) => {
     
       const sendMessage = async (e) => {
         e.preventDefault();
+        setSendingMessage(true); // Start loading spinner
         try {
           const response = await fetch('https://lost-and-found-backend-red.vercel.app/api/messages/send', {
             method: 'POST',
@@ -145,6 +146,8 @@ const markMessageAsRead = async (messageId) => {
           setContent('');
         } catch (error) {
           console.error('Error sending message:', error);
+        } finally {
+          setSendingMessage(false); // Stop loading spinner
         }
       };
       
@@ -209,7 +212,7 @@ const markMessageAsRead = async (messageId) => {
                                         required
                                     />
                                     <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px", marginBottom:"10px", backgroundColor: "#ac5959" }}>
-                                        Send
+                                      {sendingMessage ? <CircularProgress size={24} /> : 'Send'}
                                     </Button>
                                 </form>
                             </Box>
@@ -295,7 +298,7 @@ const markMessageAsRead = async (messageId) => {
                                                 required
                                             />
                                             <Button type="submit" variant="contained" color="primary" sx={{ marginTop: "10px",marginBottom:"10px", backgroundColor: "#ac5959" }}>
-                                                Send
+                                              {sendingMessage ? <CircularProgress size={24} /> : 'Send'}
                                             </Button>
                                         </form>
                                     </>
