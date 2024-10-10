@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, Card, CardContent, CardMedia, CircularProgress } from "@mui/material";
 import Navbar from "./Navbar";
-import ListingModal from "./ListingModal";
 import { Box, Grid } from "@mui/system";
 import { Link } from "react-router-dom";
 import './ListingDetails.css'; 
@@ -35,17 +34,11 @@ const Home = () => {
         fetchListings();
     }, []);
 
-    const combinedListings = [...listings, ...pets];
-
-    const groupedListings = combinedListings.reduce((acc, listing) => {
+    const groupedListings = listings.reduce((acc, listing) => {
         acc[listing.category] = acc[listing.category] || [];
         acc[listing.category].push(listing);
         return acc;
-    }, { Pets: [] });
-
-    pets.forEach(pet => {
-        groupedListings.Pets.push(pet);
-    });
+    }, {});
 
     return (
         <Grid height={"100vh"} overflow={"hidden"}>
@@ -60,40 +53,77 @@ const Home = () => {
                         {loading ? (
                             <Grid size={{ xs: 12 }} display={"flex"} justifyContent={"center"} alignItems={"center"}><CircularProgress /></Grid>
                         ) : (
-                            Object.keys(groupedListings).map((category, index) => (
-                                <div key={category}>
-                                    <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>{category}</Typography>
-                                    <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={index === Object.keys(groupedListings).length - 1 ? 10 : 0}>
-                                        {groupedListings[category].slice(-4).map((listing) => ( 
-                                            <Grid item size={{ xs: 6, md: 3 }} key={listing._id}>
-                                                <Link to={`/listing/${listing._id}`} style={{ textDecoration: 'none' }}>
-                                                    <Card>
-                                                        {listing.images.length > 0 && (
-                                                            <CardMedia
-                                                                component="img"
-                                                                alt={listing.title}
-                                                                height="180"
-                                                                image={listing.images[0]}
-                                                            />
-                                                        )}
-                                                        <CardContent>
-                                                            <Typography gutterBottom variant="h6" component="div">
-                                                                {listing.title}
-                                                            </Typography>
-                                                            <Typography variant="body2" color="text.secondary">
-                                                                {listing.description}
-                                                            </Typography>
-                                                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                                                Posted by: {listing.createdBy || 'Unknown'}
-                                                            </Typography>
-                                                        </CardContent>
-                                                    </Card>
-                                                </Link>
-                                            </Grid>
-                                        ))}
-                                    </Grid>
-                                </div>
-                            ))
+                            <>
+                                {Object.keys(groupedListings).map((category, index) => (
+                                    <div key={category}>
+                                        <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>{category}</Typography>
+                                        <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={index === Object.keys(groupedListings).length - 1 ? 10 : 0}>
+                                            {groupedListings[category].slice(-4).map((listing) => ( 
+                                                <Grid item size={{ xs: 6, md: 3 }} key={listing._id}>
+                                                    <Link to={`/listing/${listing._id}`} style={{ textDecoration: 'none' }}>
+                                                        <Card>
+                                                            {listing.images.length > 0 && (
+                                                                <CardMedia
+                                                                    component="img"
+                                                                    alt={listing.title}
+                                                                    height="180"
+                                                                    image={listing.images[0]}
+                                                                />
+                                                            )}
+                                                            <CardContent>
+                                                                <Typography gutterBottom variant="h6" component="div">
+                                                                    {listing.title}
+                                                                </Typography>
+                                                                <Typography variant="body2" color="text.secondary">
+                                                                    {listing.description}
+                                                                </Typography>
+                                                                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                                                    Posted by: {listing.createdBy || 'Unknown'}
+                                                                </Typography>
+                                                            </CardContent>
+                                                        </Card>
+                                                    </Link>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+                                    </div>
+                                ))}
+                                
+                                {pets.length > 0 && (
+                                    <div>
+                                        <Typography variant="h5" sx={{ mt: 5, mb: 1 }}>Pets</Typography>
+                                        <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={10}>
+                                            {pets.slice(-4).map((pet) => (
+                                                <Grid item size={{ xs: 6, md: 3 }} key={pet._id}>
+                                                    <Link to={`/listing/${pet._id}`} style={{ textDecoration: 'none' }}>
+                                                        <Card>
+                                                            {pet.images.length > 0 && (
+                                                                <CardMedia
+                                                                    component="img"
+                                                                    alt={pet.title}
+                                                                    height="180"
+                                                                    image={pet.images[0]}
+                                                                />
+                                                            )}
+                                                            <CardContent>
+                                                                <Typography gutterBottom variant="h6" component="div">
+                                                                    {pet.title}
+                                                                </Typography>
+                                                                <Typography variant="body2" color="text.secondary">
+                                                                    {pet.description}
+                                                                </Typography>
+                                                                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                                                    Posted by: {pet.createdBy || 'Unknown'}
+                                                                </Typography>
+                                                            </CardContent>
+                                                        </Card>
+                                                    </Link>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+                                    </div>
+                                )}
+                            </>
                         )}
                     </Grid>
                 </Grid>
