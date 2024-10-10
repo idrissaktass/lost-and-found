@@ -220,7 +220,7 @@ const Pets = () => {
                                 {displayedPets.length > 0 ? (
                                     displayedPets.map(pet => (
                                         <Grid item size={{ xs: 6, md: 3 }} key={pet._id}>
-                                            <Link to={selectedType === 'lost' ? `/lost/${pet._id}` : `/pet/${pet._id}`} style={{ textDecoration: 'none' }}>
+                                            <Link to={selectedType === 'lost' ? `/lost/${pet._id}` : `/listing/${pet._id}`} style={{ textDecoration: 'none' }}>
                                             <Card>
                                                 <CardMedia
                                                     component="img"
