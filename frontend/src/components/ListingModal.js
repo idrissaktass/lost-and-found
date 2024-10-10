@@ -127,7 +127,7 @@ const ListingModal = ({ open, onClose }) => {
           boxShadow: 24,
           borderRadius: "10px",
           padding: "20px",
-          overflow: "hidden",
+          overflow: "auto",
           '&::before': {
             content: '""',
             position: 'absolute',
