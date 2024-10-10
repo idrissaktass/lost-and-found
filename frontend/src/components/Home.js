@@ -90,7 +90,7 @@ const Home = () => {
                                 )}
                                 {Object.keys(groupedListings).map((category, index) => (
                                     <div key={category}>
-                                        <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>{category}</Typography>
+                                        <Typography variant="h5" sx={{ mt: -3, mb: 1 }}>{category}</Typography>
                                         <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={index === Object.keys(groupedListings).length - 1 ? 10 : 0}>
                                             {groupedListings[category].slice(-4).map((listing) => ( 
                                                 <Grid item size={{ xs: 6, md: 3 }} key={listing._id}>
