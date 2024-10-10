@@ -14,6 +14,7 @@ const Messaging = ({ open, onClose, recipient }) => {
     const [showMessages, setShowMessages] = useState(false);
     const [messageCount, setMessageCount] = useState(0);
     const [messageCounts, setMessageCounts] = useState(0);
+    const [sendingMessage, setSendingMessage] = useState(false);
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));

@@ -127,7 +127,7 @@ const LostModal = ({ open, onClose }) => {
           boxShadow: 24,
           borderRadius: "10px",
           padding: "20px",
-          overflow: "hidden", 
+          overflow: "auto",
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -138,7 +138,8 @@ const LostModal = ({ open, onClose }) => {
             backgroundImage: backgroundImage,
             backgroundSize: '50%',
             backgroundPosition: 'center',
-            opacity: 0.1, 
+            opacity: 0.1,
+            height:{xs:"110%", sm:0},
             zIndex: -1,
           },
         }}
