@@ -100,7 +100,9 @@ const LostDetails = () => {
                             <CardMedia
                                 component="img"
                                 alt={lost.title}
-                                height={{xs:300, sm:400}}
+                                sx={{
+                                    height: { xs: 300, sm: 400 }
+                                }}
                                 src={lost.images[0]}
                             />
                         </Grid>

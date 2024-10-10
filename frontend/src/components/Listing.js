@@ -113,7 +113,9 @@ const ListingDetails = () => {
                                         component="img"
                                         width={"100%"}
                                         alt={listing.title}
-                                        height={{xs:300, sm:400}}
+                                        sx={{
+                                            height: { xs: 300, sm: 400 }
+                                        }}
                                         src={listing.images[0]}
                                     />
                                 </Grid>
