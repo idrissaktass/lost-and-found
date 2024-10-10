@@ -94,7 +94,6 @@ const ListingDetails = () => {
     return (
         <Grid height={"100vh"} >
             <Navbar />
-            {!loading && (
                 <Box flexGrow={1}>
                     <Grid container justifyContent={'center'}>
                         <Grid height={"100vh"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
@@ -114,7 +113,7 @@ const ListingDetails = () => {
                                         component="img"
                                         width={"100%"}
                                         alt={listing.title}
-                                        height={400}
+                                        height={{xs:300, sm:400}}
                                         src={listing.images[0]}
                                     />
                                 </Grid>
@@ -144,7 +143,6 @@ const ListingDetails = () => {
                         </Grid>
                     </Grid>
                 </Box>
-            )}
             <Messaging open={isMessagesOpen} onClose={handleMessagesClose} recipient={listing.createdBy}/>
         </Grid>
     );
