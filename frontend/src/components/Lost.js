@@ -110,7 +110,7 @@ const LostDetails = () => {
                     <Typography variant="h1">{lost.title}</Typography>
                     <Typography variant="body2">{lost.description}</Typography>
                     <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                        <SvgIcon component={lost.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />
+                        <SvgIcon component={lost.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />{lost.type}
                     </Typography>
                     <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                         <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />{lost.createdBy}  
