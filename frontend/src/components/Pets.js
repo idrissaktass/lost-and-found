@@ -34,7 +34,7 @@ const Pets = () => {
     useEffect(() => {
         const fetchLostPets = async () => {
             try {
-                const response = await fetch("https://lost-and-found-backend-red.vercel.app//api/losts");
+                const response = await fetch("https://lost-and-found-backend-red.vercel.app/api/losts");
                 const data = await response.json();
                 const filteredpets = data.filter(pet => pet.type === "Pets");
                 const sortedLosts = filteredpets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
