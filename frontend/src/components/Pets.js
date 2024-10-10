@@ -216,7 +216,7 @@ const Pets = () => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid container size={{ xs: 12 }}>
+                            <Grid container spacing={{ xs: 0.5, sm: 2 }} size={{ xs: 12 }}>
                                 {displayedPets.length > 0 ? (
                                     displayedPets.map(pet => (
                                         <Grid item size={{ xs: 6, md: 3 }} key={pet._id}>
