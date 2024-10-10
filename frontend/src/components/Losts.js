@@ -114,7 +114,7 @@ const Losts = () => {
                                                     <Typography gutterBottom variant="h6" component="div">
                                                         {lost.title}
                                                     </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
+                                                    <Typography variant="body2" display={{xs:"none", sm:"unset"}} color="text.secondary">
                                                         {lost.description}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>

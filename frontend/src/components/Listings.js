@@ -203,7 +203,7 @@ const Listings = () => {
                                                         <Typography gutterBottom variant="h6" component="div">
                                                             {listing.title}
                                                         </Typography>
-                                                        <Typography variant="body2" color="text.secondary">
+                                                        <Typography variant="body2" display={{xs:"none", sm:"unset"}} color="text.secondary">
                                                             {listing.description}
                                                         </Typography>
                                                         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
