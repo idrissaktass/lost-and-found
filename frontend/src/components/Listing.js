@@ -127,8 +127,13 @@ const ListingDetails = () => {
                                 {listing.category}
                             </Typography>
                             <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                                <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />
-                                {listing.createdBy} 
+                                {listing.createdBy !== userName && (
+                                    <>
+                                        <SvgIcon component={PersonIcon} color='secondary' fontSize='large'  onClick={handleMessagesOpen}
+                                        sx={{cursor:"pointer"}}/>
+                                        {listing.createdBy} 
+                                    </>
+                                )}
                                 {listing.createdBy !== userName && (
                                     <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
                                     sx={{cursor:"pointer"}}/>
