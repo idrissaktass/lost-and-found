@@ -131,7 +131,7 @@ const ListingDetails = () => {
                                 {listing.createdBy} 
                                 {listing.createdBy !== userName && (
                                     <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
-                                        sx={{cursor:"pointer"}}/>
+                                    sx={{cursor:"pointer"}}/>
                                 )}
                             </Typography>
                             <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
