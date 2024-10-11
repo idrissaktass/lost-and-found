@@ -43,7 +43,31 @@ const Home = () => {
     return (
         <Grid height={"100vh"} overflow={"hidden"}>
             <Navbar />
-            <Box flexGrow={1}>
+            <Box flexGrow={1} sx={{
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundImage: 'url(/items.png),  url(/items.png), url(/pets.png), url(/pets.png)',
+                backgroundSize: {
+                    xs: '50% 25%', // Larger on smaller screens
+                    sm: '25% 25%',
+                    md: '30% 25%', // Default size on medium and larger screens
+                    lg: '25% 25%',
+                },
+                backgroundPosition: {
+                    xs: '0 0, 0 0, 100% 0, 100% 0', // Different positions for smaller screens
+                    sm: '0 0, 30% 0, 70% 0, 100% 0',
+                    md: '0 0, 41.2% 0, 60% 0, 100% 0', // Default positions on medium and larger screens
+                    lg: '0 0, 32% 0, 68% 0, 100% 0',
+                },
+                backgroundRepeat: 'repeat-y, repeat-y, repeat-y, repeat-y', // Images repeat vertically
+                opacity: 0.1,
+                zIndex: -1,
+            }}>
+
                 <Grid container justifyContent={"center"} pb={10}>
                     <Grid item size={{ xs: 12, md: 10, lg: 9 }} height={"91.8vh"} sx={{ background: 'linear-gradient(to right, #0088ff8c, #007fff2b)' }}
                         overflow={"auto"} boxShadow={"0px 5px 10px #b4b4b4"} px={{ xs: 1, sm: 3 }} py={3} className={`content ${showContent ? 'open' : 'closed'}`}>
