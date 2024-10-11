@@ -43,6 +43,7 @@ const Home = () => {
     return (
         <Grid height={"100vh"} overflow={"hidden"}>
             <Navbar />
+            <Box flexGrow={1}>
             <Box flexGrow={1} sx={{
                 content: '""',
                 position: 'absolute',
@@ -67,7 +68,6 @@ const Home = () => {
                 opacity: 0.1,
                 zIndex: -1,
             }}>
-
                 <Grid container justifyContent={"center"} pb={10}>
                     <Grid item size={{ xs: 12, md: 10, lg: 9 }} height={"91.8vh"} sx={{ background: 'linear-gradient(to right, #0088ff8c, #007fff2b)' }}
                         overflow={"auto"} boxShadow={"0px 5px 10px #b4b4b4"} px={{ xs: 1, sm: 3 }} py={3} className={`content ${showContent ? 'open' : 'closed'}`}>
@@ -150,6 +150,7 @@ const Home = () => {
                         )}
                     </Grid>
                 </Grid>
+                </Box>
             </Box>
         </Grid>
     );
