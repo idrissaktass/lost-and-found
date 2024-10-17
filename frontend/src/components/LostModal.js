@@ -139,7 +139,7 @@ const LostModal = ({ open, onClose }) => {
             backgroundSize: '50%',
             backgroundPosition: 'center',
             opacity: 0.1,
-            height:{xs:"110%", sm:0},
+            height:{xs:"110%", sm:"100%"},
             zIndex: -1,
           },
         }}
