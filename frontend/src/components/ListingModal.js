@@ -193,7 +193,7 @@ const ListingModal = ({ open, onClose }) => {
               </Button>
             </Grid>
           </Grid>
-          <Typography display={"flex"} alignItems={"center"} gap={1} variant="h2Light">Post a Lost 
+          <Typography display={"flex"} alignItems={"center"} gap={1} variant="h2Light">Post a Found
             <Typography color="#ac5959" variant="h2Light">{selectedType}</Typography>
           </Typography>
           <form onSubmit={handleSubmit}>
