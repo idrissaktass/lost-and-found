@@ -50,6 +50,7 @@ const Losts = () => {
             const filtered = losts.filter(lost => lost.category === category);
             setFilteredLosts(filtered);
         }
+        console.log("x")
     };
 
     if (loading) {
