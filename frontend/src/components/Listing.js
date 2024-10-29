@@ -92,7 +92,7 @@ const ListingDetails = () => {
     const formattedDate = new Date(listing.createdAt).toLocaleDateString('en-CA'); 
 
     return (
-        <Grid height={"100vh"} >
+        <div>
             <Navbar />
                 <Box flexGrow={1}>
                     <Grid container justifyContent={'center'}>
@@ -127,8 +127,7 @@ const ListingDetails = () => {
                                 {listing.category}
                             </Typography>
                             <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
-                                <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />
-                                {listing.createdBy} 
+                                <SvgIcon component={PersonIcon} color='secondary' fontSize='large'/>{listing.createdBy} 
                                 {listing.createdBy !== userName && (
                                     <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
                                     sx={{cursor:"pointer"}}/>
@@ -146,7 +145,7 @@ const ListingDetails = () => {
                     </Grid>
                 </Box>
             <Messaging open={isMessagesOpen} onClose={handleMessagesClose} recipient={listing.createdBy}/>
-        </Grid>
+        </div>
     );
 };
 
