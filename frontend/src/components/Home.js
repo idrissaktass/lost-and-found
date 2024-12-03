@@ -77,11 +77,11 @@ const Home = () => {
                             <Button onClick={handleOpen2}
                             sx={{
                                 width:"fit-content",
-                                backgroundColor: "#5454d5", 
+                                backgroundColor: "#ac5959", 
                                 padding: "10px 20px 10px 20px", 
                                 borderRadius: "10px", 
                                 '&:hover': {
-                                backgroundColor: "#6b6bd9"
+                                backgroundColor: "#ac5959"
                                 }
                             }}
                             >
