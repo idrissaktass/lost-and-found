@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://lost-and-found-frontend-mu.vercel.app"
+          "value": "https://www.lostandfoundtr.online"
         },
         {
           "key": "Access-Control-Allow-Methods",
