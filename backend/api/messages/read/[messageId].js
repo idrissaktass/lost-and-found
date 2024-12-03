@@ -3,7 +3,7 @@ import Message from '../../../models/Message';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://lost-and-found-frontend-mu.vercel.app',
+  origin: 'https://www.lostandfoundtr.online/',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -23,7 +23,7 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://lost-and-found-frontend-mu.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.lostandfoundtr.online/');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
