@@ -4,7 +4,7 @@ import User from '../../models/User';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://lost-and-found-frontend-mu.vercel.app',
+  origin: 'https://www.lostandfoundtr.online/',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
