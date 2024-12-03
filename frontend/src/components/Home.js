@@ -3,8 +3,9 @@ import { Button, Typography, Snackbar, Alert} from "@mui/material";
 import Navbar from "./Navbar";
 import { Box, Grid } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import LostModal from "./LostModal";
+import Navbar from "./Navbar";
 
-// import main from "/public/main.jpg"
 const Home = () => {
     const backgroundImage = 'url(/main.jpg)'
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
@@ -29,8 +30,13 @@ const Home = () => {
         setSnackbarOpen(false);
       };
 
+      const handleClose2 = () => {
+        setIsModalOpen2(false); 
+      };
+      
     return (
         <Grid height={"100vh"} overflow={"hidden"}>
+            <Navbar/>
             <Box flexGrow={1}>
                 <Grid container justifyContent={"center"} pb={10}>
                     <Grid item size={{xs: 12}} height={"100vh"}
@@ -90,6 +96,7 @@ const Home = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <LostModal open={isModalOpen2} onClose={handleClose2} />
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={2000}
