@@ -1,132 +1,105 @@
 import React, { useEffect, useState } from "react";
-import { Button, Typography, Card, CardContent, CardMedia, CircularProgress } from "@mui/material";
+import { Button, Typography, Snackbar, Alert} from "@mui/material";
 import Navbar from "./Navbar";
 import { Box, Grid } from "@mui/system";
-import { Link } from "react-router-dom";
-import './ListingDetails.css'; 
+import { useNavigate } from "react-router-dom";
 
+// import main from "/public/main.jpg"
 const Home = () => {
-    const [listings, setListings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [showContent, setShowContent] = useState(false);
-    const [pets, setPets] = useState([]);
+    const backgroundImage = 'url(/main.jpg)'
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchListings = async () => {
-            try {
-                const response = await fetch("https://lost-and-found-backend-red.vercel.app/api/listings");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch listings");
-                }
-                const data = await response.json();
-                const filteredListings = data.filter(listing => listing.type !== "Pets");
-                const pets = data.filter(listing => listing.type === "Pets");
-                setListings(filteredListings);
-                setShowContent(true);
-                setPets(pets);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const handleOpen2 = () => {
+        if (!isAuthenticated) {
+          setSnackbarOpen(true);
+      
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+        } else {
+          setIsModalOpen2(true);
+        }
+        console.log("xd")
+      };
 
-        fetchListings();
-    }, []);
-
-    const groupedListings = listings.reduce((acc, listing) => {
-        acc[listing.category] = acc[listing.category] || [];
-        acc[listing.category].push(listing);
-        return acc;
-    }, {});
+      const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+      };
 
     return (
         <Grid height={"100vh"} overflow={"hidden"}>
-            <Navbar />
             <Box flexGrow={1}>
                 <Grid container justifyContent={"center"} pb={10}>
-                    <Grid item size={{ xs: 12, md: 10, lg: 9 }} height={"91.8vh"} sx={{ background: 'linear-gradient(to right, #0088ff8c, #007fff2b)' }}
-                        overflow={"auto"} boxShadow={"0px 5px 10px #b4b4b4"} px={{ xs: 1, sm: 3 }} py={3} className={`content ${showContent ? 'open' : 'closed'}`}>
-                        <Grid>
-                            <Typography textAlign={"center"} variant="h1">Last Founds</Typography>
+                    <Grid item size={{xs: 12}} height={"100vh"}
+                        overflow={"auto"} boxShadow={"0px 5px 10px #b4b4b4"}>
+                        <Grid 
+                        display={"flex"} 
+                        padding={{xs:"30px", md:"80px"}} 
+                        alignItems={"center"} 
+                        sx={{
+                            position: "relative",
+                            backgroundImage: backgroundImage, 
+                            backgroundSize: "cover", 
+                            backgroundPosition: "center", 
+                            height: "100%"
+                        }}
+                        >
+                        <Grid
+                            sx={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "rgba(0, 0, 0, 0.65)",
+                            zIndex: 1,
+                            }}
+                        />
+                        
+                        <Grid display={"flex"} flexDirection={"column"} gap={"20px"}
+                            sx={{
+                            position: "relative", 
+                            zIndex: 2, 
+                            color: "#fff"
+                            }}
+                        >
+                            <Typography fontSize={"32px"} fontWeight={600} textTransform={"uppercase"}>
+                            Lost Something? Found Something? Let's Reunite!
+                            </Typography>
+                            <Button onClick={handleOpen2}
+                            sx={{
+                                width:"fit-content",
+                                backgroundColor: "#5454d5", 
+                                padding: "10px 20px 10px 20px", 
+                                borderRadius: "10px", 
+                                '&:hover': {
+                                backgroundColor: "#6b6bd9"
+                                }
+                            }}
+                            >
+                                <Typography color="#fff" fontSize={"24px"} fontWeight={500}>
+                                    Post a Lost
+                                </Typography>
+                            </Button>
                         </Grid>
-                        {loading ? (
-                            <Grid size={{ xs: 12 }} display={"flex"} justifyContent={"center"} alignItems={"center"}><CircularProgress /></Grid>
-                        ) : (
-                            <>                                                    
-                                {pets.length > 0 && (
-                                    <Grid mb={-5}>
-                                        <Typography variant="h5" sx={{ mb: 1 }}>Pets</Typography>
-                                        <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={10}>
-                                            {pets.slice(-4).map((pet) => (
-                                                <Grid item size={{ xs: 6, md: 3 }} key={pet._id}>
-                                                    <Link to={`/listing/${pet._id}`} style={{ textDecoration: 'none' }}>
-                                                        <Card>
-                                                            {pet.images.length > 0 && (
-                                                                <CardMedia
-                                                                    component="img"
-                                                                    alt={pet.title}
-                                                                    height="180"
-                                                                    image={pet.images[0]}
-                                                                />
-                                                            )}
-                                                            <CardContent>
-                                                                <Typography gutterBottom variant="h6" component="div">
-                                                                    {pet.title}
-                                                                </Typography>
-                                                                <Typography variant="body2" display={{xs:"none", sm:"unset"}} color="text.secondary">
-                                                                    {pet.description}
-                                                                </Typography>
-                                                                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                                                    Posted by: {pet.createdBy || 'Unknown'}
-                                                                </Typography>
-                                                            </CardContent>
-                                                        </Card>
-                                                    </Link>
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </Grid>
-                                )}
-                                {Object.keys(groupedListings).map((category, index) => (
-                                    <div key={category}>
-                                        <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>{category}</Typography>
-                                        <Grid container spacing={{ xs: 0.5, sm: 2 }} mb={index === Object.keys(groupedListings).length - 1 ? 10 : 0}>
-                                            {groupedListings[category].slice(-4).map((listing) => ( 
-                                                <Grid item size={{ xs: 6, md: 3 }} key={listing._id}>
-                                                    <Link to={`/listing/${listing._id}`} style={{ textDecoration: 'none' }}>
-                                                        <Card>
-                                                            {listing.images.length > 0 && (
-                                                                <CardMedia
-                                                                    component="img"
-                                                                    alt={listing.title}
-                                                                    height="180"
-                                                                    image={listing.images[0]}
-                                                                />
-                                                            )}
-                                                            <CardContent>
-                                                                <Typography gutterBottom variant="h6" component="div">
-                                                                    {listing.title}
-                                                                </Typography>
-                                                                <Typography variant="body2" display={{xs:"none", sm:"unset"}} color="text.secondary">
-                                                                    {listing.description}
-                                                                </Typography>
-                                                                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                                                    Posted by: {listing.createdBy || 'Unknown'}
-                                                                </Typography>
-                                                            </CardContent>
-                                                        </Card>
-                                                    </Link>
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </div>
-                                ))}
-                            </>
-                        )}
+                        </Grid>
+
                     </Grid>
                 </Grid>
             </Box>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={2000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+                <Alert onClose={handleSnackbarClose} severity="warning" sx={{ width: "100%" }}>
+                You need to log in first to post a listing!
+                </Alert>
+            </Snackbar>
         </Grid>
     );
 };
