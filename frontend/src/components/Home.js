@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import { Box, Grid } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import LostModal from "./LostModal";
-import Navbar from "./Navbar";
 
 const Home = () => {
     const backgroundImage = 'url(/main.jpg)'
