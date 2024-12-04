@@ -97,7 +97,7 @@ const ListingDetails = () => {
                 <Box flexGrow={1}>
                     <Grid container justifyContent={'center'}>
                         <Grid size={{ xs: 12, sm:10, md: 8, lg: 6 }} gap={2}  sx={{background: 'linear-gradient(to right, #0088ff8c, #007fff2b)'}} pt={10} px={3}
-                        height={"100vh"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
+                        height={"auto"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"} pb={3}
                          boxShadow={"0px 5px 10px #b4b4b4"} container flexDirection={'column'} className={`content ${showContent ? 'open' : 'closed'}`}>
                             {listing.images.length > 0 && (
                                 <Grid size={{ xs: 12 }} display={'flex'} justifyContent={'center'} overflow={'hidden'}>
