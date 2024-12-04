@@ -96,13 +96,14 @@ const ListingDetails = () => {
             <Navbar />
                 <Box flexGrow={1}>
                     <Grid container justifyContent={'center'}>
-                        <Grid height={"100vh"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
+                        <Grid height={"auto"} overflow={"auto"} position={"absolute"} top={"0"} zIndex={"-999"}
                             size={{ xs: 12, sm:10, md: 8, lg: 6 }} 
                             gap={2} 
                             sx={{background: 'linear-gradient(to right, #0088ff8c, #007fff2b)'}}
                             boxShadow={"0px 5px 10px #b4b4b4"} 
                             px={3}
                             pt={10}
+                            pb={3}
                             container 
                             flexDirection={'column'} 
                             className={`content ${showContent ? 'open' : 'closed'}`} 
