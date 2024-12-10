@@ -10,7 +10,7 @@ import {
     CardMedia,
     TextField,
     InputAdornment,
-    IconButton,
+    IconButton, CircularProgress
 } from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
@@ -28,11 +28,13 @@ const Pets = () => {
     const [showContent, setShowContent] = useState(false);
     const [locationFilter, setLocationFilter] = useState('');
     const [locationSuggestions, setLocationSuggestions] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const categories = ["Dogs", "Cats", "Birds", "Reptiles", "Other"];
 
     useEffect(() => {
         const fetchLostPets = async () => {
+            setLoading(true)
             try {
                 const response = await fetch("https://lost-and-found-backend-red.vercel.app/api/losts");
                 const data = await response.json();
@@ -46,9 +48,11 @@ const Pets = () => {
             } catch (error) {
                 console.error("Failed to fetch lost pets", error);
             }
+            setLoading(false)
         };
 
         const fetchFoundPets = async () => {
+            setLoading(true)
             try {
                 const response = await fetch("https://lost-and-found-backend-red.vercel.app/api/listings");
                 const data = await response.json();
@@ -62,6 +66,7 @@ const Pets = () => {
             } catch (error) {
                 console.error("Failed to fetch found pets", error);
             }
+            setLoading(false)
         };
 
         fetchLostPets();
@@ -120,6 +125,13 @@ const Pets = () => {
         filterPets(selectedCategory, locationFilter);
     };
 
+    if (loading) {
+        return (
+            <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+                <CircularProgress />
+            </Grid>
+        );
+    }
 
     return (
         <Grid>
