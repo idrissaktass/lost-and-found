@@ -187,7 +187,7 @@ const markMessageAsRead = async (messageId) => {
                     {isSmallScreen ? (
                         showMessages ? (
                             <Box flex={1}>
-                                <IconButton onClick={() => setShowMessages(false)}>
+                                <IconButton onClick={() => { setShowMessages(false); setSelectedRecipient(''); }}>
                                     <ArrowBackIcon />
                                 </IconButton>
                                     <List>
