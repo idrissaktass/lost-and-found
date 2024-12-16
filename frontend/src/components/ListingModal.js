@@ -189,7 +189,7 @@ const ListingModal = ({ open, onClose }) => {
                 }}
                 onClick={() => setSelectedType("Pets")}
               >
-                <Typography variant="body2">Pets</Typography>
+                <Typography id="lost-and-found-tr-pets" variant="body2">Pets</Typography>
               </Button>
             </Grid>
           </Grid>
