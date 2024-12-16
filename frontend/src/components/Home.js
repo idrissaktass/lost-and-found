@@ -71,7 +71,7 @@ const Home = () => {
                             color: "#fff"
                             }}
                         >
-                            <Typography fontSize={"32px"} fontWeight={600} textTransform={"uppercase"}>
+                            <Typography id="lost-and-found-tr-header" fontSize={"32px"} fontWeight={600} textTransform={"uppercase"}>
                             Lost Something? Found Something? Let's Reunite!
                             </Typography>
                             <Button onClick={handleOpen2}
