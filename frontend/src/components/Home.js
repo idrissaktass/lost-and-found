@@ -11,7 +11,29 @@ const Home = () => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
     const navigate = useNavigate();
-
+    
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.type = "application/ld+json";
+        script.innerHTML = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MobileApplication",
+            "name": "Lost and Found",
+            "operatingSystem": "iOS, Android",
+            "url": "https://www.lostandfound.online",
+            "applicationCategory": "Utility",
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "0",
+                "url": "https://www.lostandfound.online/download"
+            },
+            "screenshot": "https://www.lostandfound.online/screenshot.png",
+            "description": "Find lost items and pets with the Lost and Found app. Kayıp eşyalarınızı ve kayıp hayvanlarınızı bulun"
+        });
+        document.head.appendChild(script);
+    }, []);
+    
     const handleOpen2 = () => {
         if (!isAuthenticated) {
           setSnackbarOpen(true);
