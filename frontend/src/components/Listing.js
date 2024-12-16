@@ -112,24 +112,24 @@ const ListingDetails = () => {
                                     />
                                 </Grid>
                             )}
-                            <Typography variant="h1">{listing.title}</Typography>
-                            <Typography variant="body2">{listing.description}</Typography>
-                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                            <Typography id="lost-and-found-tr-title" variant="h1">{listing.title}</Typography>
+                            <Typography id="lost-and-found-tr-description" variant="body2">{listing.description}</Typography>
+                            <Typography id="lost-and-found-tr-category" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                                 <SvgIcon component={listing.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />
                                 {listing.category}
                             </Typography>
-                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                            <Typography id="lost-and-found-tr-author" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                                 <SvgIcon component={PersonIcon} color='secondary' fontSize='large'/>{listing.createdBy} 
                                 {listing.createdBy !== userName && (
                                     <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
                                     sx={{cursor:"pointer"}}/>
                                 )}
                             </Typography>
-                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                            <Typography id="lost-and-found-tr-location" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                                 <SvgIcon component={LocationOnIcon} color='secondary' fontSize='large' />
                                 {listing.location}
                             </Typography>
-                            <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                            <Typography id="lost-and-found-tr-date" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                                 <SvgIcon component={CalendarMonthIcon} color='secondary' fontSize='large' />
                                 {formattedDate}
                             </Typography>
