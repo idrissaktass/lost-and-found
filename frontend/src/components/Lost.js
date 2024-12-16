@@ -107,22 +107,22 @@ const LostDetails = () => {
                             />
                         </Grid>
                     )}
-                    <Typography variant="h1">{lost.title}</Typography>
-                    <Typography variant="body2">{lost.description}</Typography>
+                    <Typography id="lost-and-found-tr-title" variant="h1">{lost.title}</Typography>
+                    <Typography id="lost-and-found-tr-description" variant="body2">{lost.description}</Typography>
                     <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                         <SvgIcon component={lost.type === "Pets" ? PetsIcon : CollectionsBookmarkIcon} color='secondary' fontSize='large' />{lost.type}
                     </Typography>
-                    <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                    <Typography id="lost-and-found-tr-author" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                         <SvgIcon component={PersonIcon} color='secondary' fontSize='large' />{lost.createdBy}  
                         {lost.createdBy !== userName && (
                             <SvgIcon component={MessageIcon} color='secondary' fontSize='large' onClick={handleMessagesOpen}
                                 sx={{cursor:"pointer"}}/>
                         )}
                     </Typography>
-                    <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                    <Typography id="lost-and-found-tr-location" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                         <SvgIcon component={LocationOnIcon} color='secondary' fontSize='large' />{lost.location}
                     </Typography>
-                    <Typography variant="body2" display={'flex'} alignItems={'center'} gap={1}>
+                    <Typography id="lost-and-found-tr-date" variant="body2" display={'flex'} alignItems={'center'} gap={1}>
                         <SvgIcon component={CalendarMonthIcon} color='secondary' fontSize='large' />{formattedDate}
                     </Typography>
                 </Grid>
