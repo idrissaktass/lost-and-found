@@ -5,7 +5,7 @@ import User from '../../models/User';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://www.lostandfoundtr.online',
+  origin: 'https://www.lostandfound.website',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
