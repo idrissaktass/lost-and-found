@@ -3,7 +3,7 @@ import Listing from '../models/Listing';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://www.lostandfoundtr.online/listing',
+  origin: 'https://www.lostandfound.website/listing',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // Allows credentials (cookies, etc.) to be sent
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', https://www.lostandfoundtr.online/listing);
+    res.setHeader('Access-Control-Allow-Origin', https://www.lostandfound.website/listing);
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
