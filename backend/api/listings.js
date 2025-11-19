@@ -6,7 +6,7 @@ import cloudinary from 'cloudinary';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://www.lostandfoundtr.online',
+  origin: 'https://www.lostandfound.website',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, 
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.lostandfoundtr.online');
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.lostandfound.website');
     res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, PUT, PATCH, POST, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end(); // No content for OPTIONS method
