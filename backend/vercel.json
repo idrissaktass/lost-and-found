@@ -11,7 +11,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://www.lostandfoundtr.online"
+          "value": "https://www.lostandfound.website"
         },
         {
           "key": "Access-Control-Allow-Methods",
