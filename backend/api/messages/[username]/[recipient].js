@@ -4,7 +4,7 @@ import User from '../../../models/User';
 import Cors from 'cors';
 
 const cors = Cors({
-  origin: 'https://www.lostandfoundtr.online',
+  origin: 'https://www.lostandfound.website',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -24,7 +24,7 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.lostandfoundtr.online');
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.lostandfound.website');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Ensure credentials are allowed
