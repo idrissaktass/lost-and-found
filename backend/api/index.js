@@ -7,7 +7,7 @@ import { listingId } from './listing';
 const app = express();
 
 const corsOptions = {
-    origin: 'https://www.lostandfoundtr.online',
+    origin: 'https://www.lostandfound.website',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
